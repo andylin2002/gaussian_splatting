@@ -78,6 +78,7 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, depths_params, images_fold
 
         extr = cam_extrinsics[key]
         intr = cam_intrinsics[extr.camera_id]
+        print("\n================" + intr.model + "====================\n") # ======================== new ===========================
         height = intr.height
         width = intr.width
 
@@ -90,6 +91,11 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, depths_params, images_fold
             FovY = focal2fov(focal_length_x, height)
             FovX = focal2fov(focal_length_x, width)
         elif intr.model=="PINHOLE":
+            focal_length_x = intr.params[0]
+            focal_length_y = intr.params[1]
+            FovY = focal2fov(focal_length_y, height)
+            FovX = focal2fov(focal_length_x, width)
+        elif intr.model=="OPENCV": # ====================================new opencv ==================================
             focal_length_x = intr.params[0]
             focal_length_y = intr.params[1]
             FovY = focal2fov(focal_length_y, height)
